@@ -1,0 +1,33 @@
+{
+  "amount": 2000,
+  "currency": "BRL",
+  "description": "TESTE",
+  "payment_type": "credit",
+  "on_behalf_of": "40f88970a9d04ca1bd3bc6a4db997edf",
+  "capture": true,
+  "source": {
+    "type": "card",
+    "usage": "reusable",
+    "amount": 2000,
+    "currency": "BRL",
+    "description": "TESTE",
+    "capture": true,
+    "on_behalf_of": "40f88970a9d04ca1bd3bc6a4db997edf",
+    "card": {
+      "amount": 2000,
+      "holder_name": "teste",
+      "expiration_month": "12",
+      "expiration_year": "2023",
+      "card_number": "4539003370725497",
+      "security_code": "712"
+    },
+    "installment_plan": {
+      "mode": "interest_free",
+      "number_installments": "2"
+    },
+    "customer": {
+      "id": "c6941664c5c04ffba70da39bc587d720",
+      "amount": 2000
+    }
+  }
+}

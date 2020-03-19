@@ -23,16 +23,18 @@ export default async function register(app) {
     functionsByType: {
       startup: [startup]
     },
-    paymentMethods: [{
-      name: "iou_example",
-      canRefund: true,
-      displayName: "IOU Example",
-      functions: {
-        capturePayment: exampleCapturePayment,
-        createAuthorizedPayment: exampleCreateAuthorizedPayment,
-        createRefund: exampleCreateRefund,
-        listRefunds: exampleListRefunds
+    paymentMethods: [
+      {
+        name: "iou_example",
+        canRefund: true,
+        displayName: "IOU ExamplE",
+        functions: {
+          capturePayment: exampleCapturePayment,
+          createAuthorizedPayment: exampleCreateAuthorizedPayment,
+          createRefund: exampleCreateRefund,
+          listRefunds: exampleListRefunds
+        }
       }
-    }]
+    ]
   });
 }

@@ -1,0 +1,17 @@
+{
+  "first_name": "John",
+  "last_name": "Wick",
+  "email": "john@wick.com",
+  "phone_number": "11223219321",
+  "taxpayer_id": "1234512345",
+  "birthdate": "1990-10-20",
+  "address": {
+    "line1": "Address Line 1",
+    "line2": "Address Line 2",
+    "neighborhood": "Jardim Paulista",
+    "city": "Sao Paulo",
+    "state": "SP",
+    "postal_code": "01420001",
+    "country_code": "BR"
+  }
+}

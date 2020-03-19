@@ -21,16 +21,18 @@ export default async function register(app) {
     graphQL: {
       schemas
     },
-    paymentMethods: [{
-      name: "stripe_card",
-      canRefund: true,
-      displayName: "Stripe Card",
-      functions: {
-        capturePayment: stripeCapturePayment,
-        createAuthorizedPayment: stripeCreateAuthorizedPayment,
-        createRefund: stripeCreateRefund,
-        listRefunds: stripeListRefunds
+    paymentMethods: [
+      {
+        name: "stripe_card",
+        canRefund: true,
+        displayName: "Stripe Carda",
+        functions: {
+          capturePayment: stripeCapturePayment,
+          createAuthorizedPayment: stripeCreateAuthorizedPayment,
+          createRefund: stripeCreateRefund,
+          listRefunds: stripeListRefunds
+        }
       }
-    }]
+    ]
   });
 }

@@ -41,6 +41,9 @@ import registerTaxesRatesPlugin from "./plugins/taxes-rates/index.js";
 import registerTestAddressValidationPlugin from "./plugins/address-validation-test/index.js";
 import registerTranslationsPlugin from "./plugins/translations/index.js";
 
+/* custom plugins */
+import registerUnboxPayPlugin from "unbox-pay-plugin";
+
 /**
  * @summary A function in which you should call `register` function for each API plugin,
  *   in the order in which you want to register them.
@@ -126,6 +129,7 @@ export default async function registerPlugins(app) {
   await registerPaymentsPlugin(app); // REQUIRED
   await registerExamplePaymentsPlugin(app); // OPTIONAL
   await registerStripePaymentsPlugin(app); // OPTIONAL
+  await registerUnboxPayPlugin(app); // UNBOX CUSTOM
 
   /**
    * Discounts

@@ -157,6 +157,11 @@ fragment OrderCommon on Order {
       region
     }
     displayName
+    data {
+      ... on UnboxPayPaymentData {
+        redirectUrl
+      }
+    }
     method {
       name
     }
@@ -194,7 +199,6 @@ fragment OrderCommon on Order {
   totalItemQuantity
   updatedAt
 }
-
 
 # Fragment for order query
 fragment OrderQueryFragment on Order {

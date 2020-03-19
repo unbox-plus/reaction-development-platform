@@ -1,0 +1,9 @@
+{
+  "error": {
+    "status": "Authorizer Configuration Error",
+    "status_code": 511,
+    "type": "processing_error",
+    "category": "gateway_error",
+    "message": null
+  }
+}

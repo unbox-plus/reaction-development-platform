@@ -1,0 +1,9 @@
+## Por que? :thinking:
+Precisamos dessa alteração porque ...
+
+## O que foi feito? :page_with_curl:
+- Alterado ...
+- Corrigido ...
+
+## Observações :nail_care:
+Observação se aplicável
