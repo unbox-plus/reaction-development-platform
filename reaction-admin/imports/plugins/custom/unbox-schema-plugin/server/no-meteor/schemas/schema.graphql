@@ -1,0 +1,69 @@
+extend input AddressInput {
+  "Customer's Tax Payer Id"
+  taxPayerId: String
+
+  "Address Number"
+  number: String
+
+  "Address reference"
+  reference: String
+
+  "Address neighborhood"
+  neighborhood: String
+
+  "Customer's Mobile"
+  mobile: String
+
+  "If the user wants to receive push notification on the cell phone"
+  trackByMobile: Boolean
+}
+
+extend type Address {
+  "Customer's Tax Payer Id"
+  taxPayerId: String
+
+  "Address Number"
+  number: String
+
+  "Address reference"
+  reference: String
+
+  "Address neighborhood"
+  neighborhood: String
+
+  "Customer's Mobile"
+  mobile: String
+
+  "If the user wants to receive push notification on the cell phone"
+  trackByMobile: Boolean
+}
+
+extend type CatalogProductVariant {
+  "Images from amazon"
+  imageUrls: [String!]
+}
+
+extend type CatalogProduct {
+  "Images from amazon"
+  imageUrls: [String!]
+}
+
+extend type CartItem {
+  "Image from amazon"
+  thumbnail: String
+}
+
+extend input CartItemInput {
+  "Image from amazon"
+  thumbnail: String
+}
+
+extend input OrderFulfillmentGroupItemInput {
+  "Product Image"
+  thumbnail: String
+}
+
+extend type OrderItem {
+  "Product Image"
+  thumbnail: String
+}

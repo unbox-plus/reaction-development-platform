@@ -1,0 +1,55 @@
+{
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "plugins": ["jest"],
+  "settings": {
+    "import/core-modules": [
+      "@reactioncommerce/api-utils",
+      "@reactioncommerce/api-utils/encodeOpaqueId.js",
+      "@reactioncommerce/api-utils/decodeOpaqueIdForNamespace.js",
+      "@reactioncommerce/random",
+      "@reactioncommerce/logger",
+      "@reactioncommerce/schemas",
+      "@reactioncommerce/reaction-error",
+      "@reactioncommerce/reaction-components",
+      "@fortawesome/react-fontawesome",
+      "@fortawesome/free-solid-svg-icons",
+      "meteor/check",
+      "meteor/tracker",
+      "meteor/mongo",
+      "meteor/templating",
+      "meteor/http",
+      "meteor/meteor",
+      "simpl-schema",
+      "prop-types",
+      "/imports/plugins/core/core/server/Reaction",
+      "/lib/collections",
+      "/imports/collections/schemas",
+      "/lib/collections/schemas",
+      "/imports/plugins/core/core/server/startup/i18n",
+      "/imports/collections/schemas/helpers",
+      "/client/api",
+      "/imports/client/ui",
+      "/imports/plugins/core/ui/client/components",
+      "/imports/plugins/core/graphql/server/getGraphQLContextInMeteorMethod",
+      "/imports/node-app/core-services/cart/simpleSchemas",
+      "/imports/node-app/core-services/orders/simpleSchemas",
+      "/imports/node-app/core-services/orders/simpleSchemas"
+    ]
+  },
+  "env": {
+    "jest/globals": true
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "import/no-absolute-path": "off",
+    "class-methods-use-this": "off",
+    "react/jsx-filename-extension": "off",
+    "react/forbid-prop-types": "off",
+    "no-underscore-dangle": "off",
+    "prettier/prettier": ["error"],
+    "import/no-extraneous-dependencies": "off"
+  },
+  "globals": {
+    "Alerts": "readonly"
+  }
+}
