@@ -59,6 +59,9 @@ const integerAmount = amountFloat => Math.round(amountFloat * 100);
  * @return {Promise<Object>} The payment object in schema expected by the orders plugin
  */
 export default async function authorizeTransactionReaction(context, input) {
+  const {
+    collections: { UnboxPayCustomer }
+  } = context;
   const { email, amount: amountFloat, billingAddress, currencyCode, shopId, paymentData } = input;
   const { paymentType, ...paymentInfo } = paymentData;
   const { installments } = paymentInfo;
@@ -77,7 +80,7 @@ export default async function authorizeTransactionReaction(context, input) {
   const lastName = getLastName(fullName);
   const address = getAddress(billingAddress);
   const paymentMethod = getPaymentMethod(paymentType, paymentInfo);
-  const customerRepository = new CustomerRepositoryZoop();
+  const customerRepository = new CustomerRepositoryZoop(UnboxPayCustomer);
   const transactionRepository = new TransactionRepositoryZoop();
 
   try {

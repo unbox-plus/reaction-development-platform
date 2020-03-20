@@ -2,7 +2,6 @@ import Customer from '../../domain/entities/Customer';
 import { request, POST } from '../http/httpRequest';
 import { ZOOP_URL, getZoopAuth, getZoopMarketplaceId } from './zoopConstants';
 import CustomerPayloadBuilder from './CustomerPayloadBuilderZoop';
-import UnboxPayCustomer from '../reaction/collections/UnboxPayCustomer';
 
 /**
  * @typedef {import("../../domain/entities/Customer").default} Customer
@@ -32,7 +31,7 @@ const createZoopCustomer = async customer => {
   return customerResult;
 };
 
-const createUnboxPayCustomer = async (customer, zoopCustomer) => {
+const createUnboxPayCustomer = async (customer, zoopCustomer, UnboxPayCustomer) => {
   const unboxPayCustomer = await UnboxPayCustomer.insert({
     email: customer.email,
     paymentProcessorId: zoopCustomer.id
@@ -41,20 +40,28 @@ const createUnboxPayCustomer = async (customer, zoopCustomer) => {
   return unboxPayCustomer;
 };
 
-const getUnboxPayCustomer = email => {
+const getUnboxPayCustomer = (email, UnboxPayCustomer) => {
   const unboxPayCustomer = UnboxPayCustomer.findOne({ email });
 
   return unboxPayCustomer;
 };
 
 class CustomerRepositoryZoop {
+  constructor(unboxPayCustomerCollection) {
+    this.UnboxPayCustomer = unboxPayCustomerCollection;
+  }
+
   /**
    * Persists customer with Zoop
    * @param {Customer} customer Customer entity
    */
   async persist(customer) {
-    const zoopCustomer = await createZoopCustomer(customer);
-    const unboxPayCustomer = await createUnboxPayCustomer(customer, zoopCustomer);
+    const zoopCustomer = await createZoopCustomer(customer, this.UnboxPayCustomer);
+    const unboxPayCustomer = await createUnboxPayCustomer(
+      customer,
+      zoopCustomer,
+      this.UnboxPayCustomer
+    );
 
     return new Customer({
       id: unboxPayCustomer._id,
@@ -74,7 +81,7 @@ class CustomerRepositoryZoop {
    * @returns {Customer} The customer found
    */
   async findByEmail(email) {
-    const unboxPayCustomer = await getUnboxPayCustomer(email);
+    const unboxPayCustomer = await getUnboxPayCustomer(email, this.UnboxPayCustomer);
 
     if (!unboxPayCustomer) return null;
 

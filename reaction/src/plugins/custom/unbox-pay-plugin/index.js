@@ -17,6 +17,11 @@ export default async function register(app) {
     name: 'unboxpay-payments',
     icon: 'fa fa-credit-card-alt',
     autoEnable: true,
+    collections: {
+      UnboxPayCustomer: {
+        name: 'UnboxPayCustomer'
+      }
+    },
     graphQL: {
       schemas
     },
