@@ -67,3 +67,22 @@ extend type OrderItem {
   "Product Image"
   thumbnail: String
 }
+
+"Data for an UnboxPay payment"
+type UnboxPayPaymentData {
+  "The type of payment, it should be debit, credit, boleto, bank_account"
+  paymentType: String
+  "The payment Record with all data recorded from zoop"
+  paymentRecord: JSONObject
+  "The redirect url in case this is a boleto"
+  redirectUrl: String
+  "The installments information"
+  installments: JSONObject
+}
+
+extend union PaymentData = UnboxPayPaymentData
+
+extend enum PaymentMethodName {
+  unboxpay_credit
+  unboxpay_boleto
+}

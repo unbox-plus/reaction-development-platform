@@ -23,6 +23,9 @@ export default async function register(app) {
       Quotations: {
         name: 'Quotations',
         indexes: [[{ shopId: 1 }]]
+      },
+      UnboxPayCustomer: {
+        name: 'UnboxPayCustomer'
       }
     },
     graphQL: {
