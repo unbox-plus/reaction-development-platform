@@ -54,6 +54,15 @@ export default async function register(app) {
       'unboxpay-payments': {
         sellerId: ''
       }
-    }
+    },
+    registry: [
+      // Settings panel
+      {
+        label: 'Unbox Pay', // this key (minus spaces) is used for translations
+        provides: ['paymentSettings'],
+        container: 'dashboard',
+        template: 'UnboxPaySettingsFormContainer'
+      }
+    ]
   });
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { composeWithTracker } from '@reactioncommerce/reaction-components';
+import { composeWithTracker, registerComponent } from '@reactioncommerce/reaction-components';
 import { Meteor } from 'meteor/meteor';
 import { Packages } from '/lib/collections';
 import { Reaction, i18next } from '/client/api';
@@ -14,9 +14,9 @@ class UnboxPaySettingsFormContainer extends Component {
   }
 
   handleSubmit(settings) {
-    const { packageData } = this.props;
-    const packageId = packageData._id;
-    const { name } = packageData;
+    // const { packageData } = this.props;
+    const packageId = 'unbox-pay-id';
+    const name = 'unbox-pay-teste';
     // fields sent to the API
     const fields = [
       {
@@ -43,28 +43,38 @@ class UnboxPaySettingsFormContainer extends Component {
       <UnboxPaySettingsForm
         onChange={(name, value) => this.handleChange(name, value)}
         onSubmit={settings => this.handleSubmit(settings)}
-        settings={packageData.settings['unboxpay-payments']}
+        settings={{}}
       />
     );
   }
 }
 
 UnboxPaySettingsFormContainer.propTypes = {
-  packageData: PropTypes.object.isRequired
+  packageData: PropTypes.object
 };
 
 const composer = (props, onData) => {
+  console.log('etapa 1');
   const shopId = Reaction.getShopId();
+  console.log('etapa 2');
   const subscription = Meteor.subscribe('Packages', shopId);
+  console.log('etapa 3');
 
-  if (subscription.ready()) {
-    const packageData = Packages.findOne({
-      name: 'unboxpay-payments',
-      shopId: Reaction.getShopId()
-    });
-
-    onData(null, { packageData });
-  }
+  // if (subscription.ready()) {
+  console.log('etapa 4');
+  const packageData = Packages.findOne({
+    name: 'unboxpay-payments',
+    shopId: Reaction.getShopId()
+  });
+  console.log('etapa 5');
+  onData(null, { packageData });
+  // }
 };
 
-export default composeWithTracker(composer)(UnboxPaySettingsFormContainer);
+registerComponent(
+  'UnboxPaySettingsFormContainer',
+  UnboxPaySettingsFormContainer,
+  composeWithTracker(composer)
+);
+
+export default UnboxPaySettingsFormContainer;

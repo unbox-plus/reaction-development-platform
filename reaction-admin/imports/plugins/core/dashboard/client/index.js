@@ -1,61 +1,92 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStore } from "@fortawesome/free-solid-svg-icons";
-
-import { registerBlock } from "/imports/plugins/core/components/lib";
+import SettingsIcon from "mdi-material-ui/Settings";
+import { registerBlock } from "@reactioncommerce/reaction-components";
 import { registerOperatorRoute } from "/imports/client/ui";
 import OperatorLanding from "/imports/plugins/core/dashboard/client/components/OperatorLanding";
 
-import SystemInformation from "./components/SystemInformation";
+// Settings block regions
+import ShopSettingsRegion from "./components/ShopSettingsRegion";
+import SystemSettingsRegion from "./components/SystemSettingsRegion";
+
+// Settings
+import SettingsDashboard from "./components/SettingsDashboard";
+import ShopAddressSettings from "./components/ShopAddressSettings";
 import ShopLogoUrls from "./components/ShopLogoUrls";
+import ShopSettingsForm from "./components/ShopSettingsForm";
 import StorefrontUrls from "./components/StorefrontUrls";
+import SystemInformation from "./components/SystemInformation";
 
 import "./components/shopBrandImageOption";
 import "./components/ShopBrandMediaManager";
 import "./containers/CreateFirstShopForm.js";
 
-import "./templates/shop/settings/settings.html";
-import "./templates/shop/settings/settings.less";
-import "./templates/shop/settings/settings.js";
-
 // Default landing page
 registerOperatorRoute({
-  isNavigationLink: false,
-  isSetting: false,
   path: "/",
-  mainComponent: OperatorLanding
+  MainComponent: OperatorLanding
 });
 
 registerOperatorRoute({
-  isNavigationLink: true,
-  isSetting: true,
-  priority: 10,
-  path: "/shop-settings",
-  mainComponent: "shopSettings",
+  group: "navigation",
+  priority: 80,
+  path: "/settings/:setting?",
+  href: "/settings/shop",
+  LayoutComponent: null,
+  MainComponent: SettingsDashboard,
   // eslint-disable-next-line react/display-name
-  SidebarIconComponent: (props) => <FontAwesomeIcon icon={faStore} {...props} />,
+  SidebarIconComponent: SettingsIcon,
+  sidebarI18nLabel: "admin.settings.settingsLabel"
+});
+
+// Shop settings region
+registerOperatorRoute({
+  group: "settings",
+  MainComponent: ShopSettingsRegion,
+  priority: 110,
+  path: "/settings/shop",
   sidebarI18nLabel: "admin.settings.shopSettingsLabel"
 });
 
 registerOperatorRoute({
-  isNavigationLink: true,
-  isSetting: true,
-  mainComponent: SystemInformation,
-  path: "/system",
-  priority: 1000,
+  group: "settings",
+  MainComponent: SystemSettingsRegion,
+  path: "/settings/system",
+  priority: 300,
   sidebarI18nLabel: "shopSettings.systemInfo.title"
+});
+
+// Settings blocks
+registerBlock({
+  region: "ShopSettings",
+  name: "ShopSettingsGeneral",
+  component: ShopSettingsForm,
+  priority: 1
+});
+
+registerBlock({
+  region: "ShopSettings",
+  name: "ShopAddress",
+  component: ShopAddressSettings,
+  priority: 2
 });
 
 registerBlock({
   region: "ShopSettings",
   name: "ShopLogoUrls",
   component: ShopLogoUrls,
-  priority: 2
+  priority: 3
 });
 
 registerBlock({
-  region: "ShopSettings",
+  region: "EmailSettings",
   name: "StorefrontUrls",
   component: StorefrontUrls,
-  priority: 3
+  priority: 2
+});
+
+// System settings blocks
+registerBlock({
+  region: "SystemSettings",
+  name: "SystemSettingsGeneral",
+  component: SystemInformation,
+  priority: 1
 });

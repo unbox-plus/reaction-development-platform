@@ -13,50 +13,13 @@ import authorizeTransactionReaction from './server/infra/reaction/payments/autho
  */
 export default async function register(app) {
   await app.registerPlugin({
-    label: 'UnboxPay',
-    name: 'unboxpay-payments',
-    icon: 'fa fa-credit-card-alt',
-    autoEnable: true,
-    graphQL: {
-      schemas
-    },
-    functionsByType: {
-      startup: [startup]
-    },
-    paymentMethods: [
-      {
-        name: 'unboxpay_credit',
-        displayName: 'UnboxPay Credit Card',
-        functions: {
-          capturePayment: exampleCapturePayment,
-          createAuthorizedPayment: authorizeTransactionReaction,
-          createRefund: exampleCreateRefund,
-          listRefunds: exampleListRefunds
-        }
-      },
-      {
-        name: 'unboxpay_boleto',
-        displayName: 'UnboxPay Boleto',
-        functions: {
-          capturePayment: exampleCapturePayment,
-          createAuthorizedPayment: authorizeTransactionReaction,
-          createRefund: exampleCreateRefund,
-          listRefunds: exampleListRefunds
-        }
-      }
-    ],
-    settings: {
-      'unboxpay-payments': {
-        sellerId: ''
-      }
-    },
     registry: [
       // Settings panel
       {
-        label: 'UnboxPay', // this key (minus spaces) is used for translations
+        label: 'Unbox Pay', // this key (minus spaces) is used for translations
         provides: ['paymentSettings'],
         container: 'dashboard',
-        template: 'unboxPaySettings'
+        template: 'UnboxPaySettingsFormContainer'
       }
     ]
   });

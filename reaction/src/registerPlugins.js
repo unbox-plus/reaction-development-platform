@@ -1,5 +1,7 @@
 /* npm package imports */
 import registerAuthenticationPlugin from "@reactioncommerce/plugin-authentication";
+import registerNavigationPlugin from "@reactioncommerce/plugin-navigation";
+import registerExamplePaymentsPlugin from "@reactioncommerce/plugin-payments-example";
 import registerSimpleAuthorizationPlugin from "@reactioncommerce/plugin-simple-authorization";
 import registerSystemInformationPlugin from "@reactioncommerce/plugin-system-information";
 
@@ -25,9 +27,7 @@ import registerTaxesPlugin from "./core-services/taxes/index.js";
 /* plugins */
 import registerDiscountCodesPlugin from "./plugins/discount-codes/index.js";
 import registerEmailTemplatesPlugin from "./plugins/email-templates/index.js";
-import registerExamplePaymentsPlugin from "./plugins/payments-example/index.js";
 import registerJobQueuePlugin from "./plugins/job-queue/index.js";
-import registerNavigationPlugin from "./plugins/navigation/index.js";
 import registerNotificationsPlugin from "./plugins/notifications/index.js";
 import registerShippingRatesPlugin from "./plugins/shipping-rates/index.js";
 import registerSimpleInventoryPlugin from "./plugins/simple-inventory/index.js";
