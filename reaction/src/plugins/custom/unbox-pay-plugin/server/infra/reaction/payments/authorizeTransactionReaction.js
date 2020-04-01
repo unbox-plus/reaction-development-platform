@@ -67,28 +67,7 @@ export default async function authorizeTransactionReaction(context, input) {
   const { installments } = paymentInfo;
   const { phone, fullName } = billingAddress;
   const paymentMethodType = definePaymentMethodByPaymentType(paymentType);
-  const { unboxPayPluginSellerId: sellerId } = getPackageSettings(context, shopId);
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('sellerId', sellerId);
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
-  console.log('======================================================');
+  const { unboxPayPluginSellerId } = await getPackageSettings(context, shopId);
   const amount = integerAmount(amountFloat);
   const taxPayerId = '078.783.660-55'; // TODO: GET TAX PAYER
   const birthDate = '1992-10-05'; // TODO: GET BIRTH DATE
@@ -96,6 +75,7 @@ export default async function authorizeTransactionReaction(context, input) {
   const lastName = getLastName(fullName);
   const address = getAddress(billingAddress);
   const paymentMethod = getPaymentMethod(paymentType, paymentInfo);
+
   const customerRepository = new CustomerRepositoryZoop(UnboxPayCustomer);
   const transactionRepository = new TransactionRepositoryZoop();
 
@@ -109,7 +89,7 @@ export default async function authorizeTransactionReaction(context, input) {
         phoneNumber: phone,
         birthDate,
         taxPayerId,
-        sellerId,
+        sellerId: unboxPayPluginSellerId,
         amount,
         currencyCode,
         installments,
