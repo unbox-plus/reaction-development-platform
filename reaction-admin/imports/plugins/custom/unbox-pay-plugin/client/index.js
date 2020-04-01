@@ -1,13 +1,15 @@
-import './settings/templates/unboxPay';
 import { registerBlock } from '/imports/plugins/core/components/lib';
 
-import UnboxPaySettingsFormContainer from './settings/containers/UnboxPaySettingsFormContainer';
-
-console.log('UnboxPaySettingsFormContainer', UnboxPaySettingsFormContainer);
+import {
+  UnboxPaySettingsForm,
+  withUnboxPayShopSettings,
+  withUpdateUnboxPayShopSettings
+} from './settings/components';
 
 registerBlock({
   label: 'UnboxPay',
   name: 'unboxpay-payments',
   region: 'PaymentSettings',
-  component: UnboxPaySettingsFormContainer
+  component: UnboxPaySettingsForm,
+  hocs: [withUnboxPayShopSettings, withUpdateUnboxPayShopSettings]
 });

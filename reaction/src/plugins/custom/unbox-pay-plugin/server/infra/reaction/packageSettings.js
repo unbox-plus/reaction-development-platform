@@ -1,9 +1,4 @@
-import Reaction from '/imports/plugins/core/core/server/Reaction';
-
-export const getPackageSettings = packageName => {
-  const unboxpayPackage = Reaction.getPackageSettings(packageName);
-
-  const { settings } = unboxpayPackage;
-
-  return settings[packageName];
+export const getPackageSettings = async (context, shopId) => {
+  const settings = await context.queries.appSettings(context, shopId);
+  return settings;
 };

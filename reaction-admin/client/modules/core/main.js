@@ -27,7 +27,37 @@ let slugify;
 // Array of ISO Language codes for all languages that use latin based char sets
 // list is based on this matrix http://w3c.github.io/typography/gap-analysis/language-matrix.html
 // list of lang codes https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-const latinLangs = ["az", "da", "de", "en", "es", "ff", "fr", "ha", "hr", "hu", "ig", "is", "it", "jv", "ku", "ms", "nl", "no", "om", "pl", "pt", "ro", "sv", "sw", "tl", "tr", "uz", "vi", "yo"]; // eslint-disable-line max-len
+const latinLangs = [
+  "az",
+  "da",
+  "de",
+  "en",
+  "es",
+  "ff",
+  "fr",
+  "ha",
+  "hr",
+  "hu",
+  "ig",
+  "is",
+  "it",
+  "jv",
+  "ku",
+  "ms",
+  "nl",
+  "no",
+  "om",
+  "pl",
+  "pt",
+  "ro",
+  "sv",
+  "sw",
+  "tl",
+  "tr",
+  "uz",
+  "vi",
+  "yo"
+]; // eslint-disable-line max-len
 
 export default {
   /**
@@ -61,27 +91,27 @@ export default {
     // Listen for the primary shop subscription and set accordingly
     return Tracker.autorun(() => {
       let shop;
-      if (this.Subscriptions.PrimaryShop.ready()) {
+      if (this.Subscriptions.MyAccount.ready()) {
         // There should only ever be one "primary" shop
-        shop = Shops.findOne({
-          shopType: "primary"
-        });
+        // shop = Shops.findOne({
+        //   shopType: "primary"
+        // });
 
-        if (shop) {
-          this._primaryShopId.set(shop._id);
+        // if (shop) {
+        //   this._primaryShopId.set(shop._id);
 
-          // if we don't have an active shopId, try to retrieve it from the userPreferences object
-          // and set the shop from the storedShopId
-          if (!this.shopId) {
-            const currentShop = this.getCurrentShop();
+        //   // if we don't have an active shopId, try to retrieve it from the userPreferences object
+        //   // and set the shop from the storedShopId
+        //   if (!this.shopId) {
+        const currentShop = this.getCurrentShop();
 
-            if (currentShop) {
-              this.shopId = currentShop._id;
-              this.shopName = currentShop.name;
-            }
-          }
+        if (currentShop) {
+          this.shopId = currentShop._id;
+          this.shopName = currentShop.name;
         }
       }
+      // }
+      // }
     });
   },
 
@@ -140,7 +170,9 @@ export default {
       // remove duplicate permissions
       // set permissions array with shopId as key on accountPermissions object
       uniqueShopIds.forEach((shopId) => {
-        const groupPermissionsForShop = groups.filter((group) => group.shopId === shopId).map((group) => group.permissions);
+        const groupPermissionsForShop = groups
+          .filter((group) => group.shopId === shopId)
+          .map((group) => group.permissions);
         const flattenedGroupPermissionsForShop = _.flattenDeep(groupPermissionsForShop);
         const uniquePermissionsForShop = _.uniq(flattenedGroupPermissionsForShop);
         accountPermissions[permissionsGroup] = uniquePermissionsForShop;
@@ -220,7 +252,6 @@ export default {
     return false;
   },
 
-
   /**
    * @name hasDashboardAccessForAnyShop
    * @summary client permission check for any "owner", "admin", or "dashboard" permissions for any shop.
@@ -239,7 +270,9 @@ export default {
 
     // Nested find that determines if a user has any of the permissions
     // specified in the `permissions` array for any shop
-    const hasPermissions = Object.keys(user.roles).find((shopId) => user.roles[shopId].find((role) => permissions.find((permission) => permission === role)));
+    const hasPermissions = Object.keys(user.roles).find((shopId) =>
+      user.roles[shopId].find((role) => permissions.find((permission) => permission === role))
+    );
 
     // Find returns undefined if nothing is found.
     // This will return true if permissions are found, false otherwise
@@ -323,9 +356,21 @@ export default {
    * @returns {Object|null} The shop document
    */
   getCurrentShop() {
+    const userId = getUserId();
+    // Groups that a user belongs to are saved on the `account` object, not the `user` object
+    const account = Accounts.findOne({
+      userId
+    });
+
+    console.log(account);
+
     // Give preference to shop chosen by the user
-    const activeShopId = this.getUserShopId();
-    if (activeShopId) return Shops.findOne({ _id: activeShopId });
+    const activeShopId = account ? account.shopId : null;
+    if (activeShopId) {
+      const a = Shops.findOne({ _id: activeShopId });
+      console.log(a);
+      return a;
+    }
 
     // If no chosen shop, fall back to primary shop
     return Shops.findOne({ shopType: "primary" });
@@ -392,7 +437,9 @@ export default {
    * @returns {undefined} undefined
    */
   setShopId(id) {
-    if (!id || this.shopId === id) { return; }
+    if (!id || this.shopId === id) {
+      return;
+    }
 
     this.shopId = id;
     Meteor.call("accounts/setActiveShopId", id);
@@ -679,14 +726,18 @@ export default {
    * @returns {undefined}
    */
   clearActionView() {
-    Session.set("admin/actionView", [{
-      label: "",
-      i18nKeyLabel: ""
-    }]);
-    Session.set("admin/detailView", [{
-      label: "",
-      i18nKeyLabel: ""
-    }]);
+    Session.set("admin/actionView", [
+      {
+        label: "",
+        i18nKeyLabel: ""
+      }
+    ]);
+    Session.set("admin/detailView", [
+      {
+        label: "",
+        i18nKeyLabel: ""
+      }
+    ]);
   },
 
   /**
@@ -696,10 +747,12 @@ export default {
    * @returns {undefined}
    */
   clearActionViewDetail() {
-    Session.set("admin/detailView", [{
-      label: "",
-      i18nKeyLabel: ""
-    }]);
+    Session.set("admin/detailView", [
+      {
+        label: "",
+        i18nKeyLabel: ""
+      }
+    ]);
   },
 
   /**

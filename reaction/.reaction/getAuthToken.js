@@ -1,6 +1,6 @@
-const { URL } = require("url");
-const fetch = require("node-fetch");
-const simpleOAuth2 = require("simple-oauth2");
+import { URL } from "url";
+import fetch from "node-fetch";
+import simpleOAuth2 from "simple-oauth2";
 
 const HYDRA_OAUTH_URL = "http://localhost:4444";
 const HYDRA_ADMIN_URL = "http://localhost:4445";
@@ -115,22 +115,25 @@ async function main(userId) {
   const challenge = redirect1Parsed.searchParams.get("login_challenge");
   const cookie = startLoginResult.headers.get("set-cookie");
 
-  const acceptLoginResult = await fetch(`${HYDRA_ADMIN_URL}/oauth2/auth/requests/login/accept?login_challenge=${challenge}`, {
-    method: "PUT",
-    body: JSON.stringify({
-      subject: userId,
-      remember: false
-    }),
-    headers: {
-      "Content-Type": "application/json"
+  const acceptLoginResult = await fetch(
+    `${HYDRA_ADMIN_URL}/oauth2/auth/requests/login/accept?login_challenge=${challenge}`,
+    {
+      method: "PUT",
+      body: JSON.stringify({
+        subject: userId,
+        remember: false
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
     }
-  });
+  );
 
   const { redirect_to: redirect2 } = await acceptLoginResult.json();
 
   const continueLoginResult = await fetch(redirect2, {
     headers: {
-      "Cookie": cookie
+      Cookie: cookie
     },
     redirect: "manual"
   });
@@ -143,23 +146,26 @@ async function main(userId) {
   }
 
   const consentChallenge = redirect3Parsed.searchParams.get("consent_challenge");
-  const nextCookies = continueLoginResult.headers.raw()['set-cookie']
+  const nextCookies = continueLoginResult.headers.raw()["set-cookie"];
 
-  const consentResult = await fetch(`${HYDRA_ADMIN_URL}/oauth2/auth/requests/consent/accept?consent_challenge=${consentChallenge}`, {
-    method: "PUT",
-    body: JSON.stringify({
-      grant_scope: ["openid"],
-      remember: false
-    }),
-    headers: {
-      "Content-Type": "application/json"
+  const consentResult = await fetch(
+    `${HYDRA_ADMIN_URL}/oauth2/auth/requests/consent/accept?consent_challenge=${consentChallenge}`,
+    {
+      method: "PUT",
+      body: JSON.stringify({
+        grant_scope: ["openid"],
+        remember: false
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
     }
-  });
+  );
 
   const { redirect_to: redirect4 } = await consentResult.json();
 
   const postConsentResult = await fetch(redirect4, {
-    headers: nextCookies.map((val) => (["Cookie", val])),
+    headers: nextCookies.map((val) => ["Cookie", val]),
     redirect: "manual"
   });
   const redirect5 = postConsentResult.headers.get("location");
@@ -192,5 +198,7 @@ if (!userId) {
 
 main(userId).catch((error) => {
   console.error(error.message);
-  console.error("\nMake sure the Hydra service is running with ports 4444 and 4445 accessible from the host computer\n");
+  console.error(
+    "\nMake sure the Hydra service is running with ports 4444 and 4445 accessible from the host computer\n"
+  );
 });

@@ -29,12 +29,12 @@
     "@reactioncommerce/nodemailer": "~5.0.5",
     "@reactioncommerce/plugin-authentication": "~1.0.0",
     "@reactioncommerce/plugin-navigation": "~1.0.2",
+    "@reactioncommerce/plugin-payments-example": "~1.0.0",
     "@reactioncommerce/plugin-simple-authorization": "~1.1.0",
     "@reactioncommerce/plugin-system-information": "~1.0.0",
-    "@reactioncommerce/plugin-payments-example": "~1.0.0",
     "@reactioncommerce/random": "~1.0.2",
     "@reactioncommerce/reaction-error": "~1.0.1",
-    "unbox-pay-plugin": "file:./src/plugins/custom/unbox-pay-plugin",
+    "@std/esm": "^0.26.0",
     "accounting-js": "~1.1.1",
     "apollo-server": "~2.9.4",
     "apollo-server-express": "~2.9.4",
@@ -61,8 +61,9 @@
     "ramda": "~0.26.1",
     "semver": "~6.3.0",
     "sharp": "~0.23.1",
-    "simpl-schema": "~1.5.6",
-    "stripe": "~5.10.0"
+    "simpl-schema": "^1.5.7",
+    "stripe": "~5.10.0",
+    "unbox-pay-plugin": "file:./src/plugins/custom/unbox-pay-plugin"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

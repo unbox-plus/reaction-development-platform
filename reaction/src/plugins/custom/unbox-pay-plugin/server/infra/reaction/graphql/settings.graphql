@@ -1,0 +1,7 @@
+extend type ShopSettings {
+  unboxPayPluginSellerId: String
+}
+
+extend input ShopSettingsUpdates {
+  unboxPayPluginSellerId: String
+}

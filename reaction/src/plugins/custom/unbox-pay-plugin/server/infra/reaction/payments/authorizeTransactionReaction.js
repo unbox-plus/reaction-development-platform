@@ -3,7 +3,7 @@ import Logger from '../../../domain/logger';
 import Address from '../../../domain/entities/Address';
 import { getFirstName, getLastName } from '../../../application/use_cases/GetNames';
 import CustomerRepositoryZoop from '../../zoop/CustomerRepositoryZoop';
-// import { getPackageSettings } from '../packageSettings';
+import { getPackageSettings } from '../packageSettings';
 import { definePaymentMethodByPaymentType } from './paymentMethod';
 import CreditCard from '../../../domain/entities/CreditCard';
 import Boleto from '../../../domain/entities/Boleto';
@@ -67,12 +67,7 @@ export default async function authorizeTransactionReaction(context, input) {
   const { installments } = paymentInfo;
   const { phone, fullName } = billingAddress;
   const paymentMethodType = definePaymentMethodByPaymentType(paymentType);
-
-  // TODO: Verificar como conseguir essa informação depois
-  // const unboxPaySettings = getPackageSettings(PACKAGE_NAME);
-  // const { sellerId } = unboxPaySettings;
-  const sellerId = 'TMP';
-
+  const { unboxPayPluginSellerId: sellerId } = getPackageSettings(context, shopId);
   const amount = integerAmount(amountFloat);
   const taxPayerId = '078.783.660-55'; // TODO: GET TAX PAYER
   const birthDate = '1992-10-05'; // TODO: GET BIRTH DATE

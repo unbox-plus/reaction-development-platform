@@ -20,6 +20,9 @@ fi
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 node_script=${__dir}/../.reaction/getAuthToken.js
+
+echo $node_script
+
 simple_oauth2_pkg_json=${__dir}/../node_modules/simple-oauth2/package.json
 simple_oauth2_version="3.1.0"
 
@@ -31,4 +34,4 @@ elif [[ $(grep -c '"version": "'${simple_oauth2_version}'"' ${simple_oauth2_pkg_
 fi
 
 # Run the script using Node
-node ${node_script} "$1"
+node  --experimental-modules ${node_script} "$1"

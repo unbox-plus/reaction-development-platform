@@ -5,6 +5,7 @@ import exampleCapturePayment from './server/infra/reaction/payments/exampleCaptu
 import exampleCreateRefund from './server/infra/reaction/payments/exampleCreateRefund';
 import exampleListRefunds from './server/infra/reaction/payments/exampleListRefunds';
 import authorizeTransactionReaction from './server/infra/reaction/payments/authorizeTransactionReaction';
+import SimpleSchema from 'simpl-schema';
 
 /**
  * @summary Import and call this function to add this plugin to your API.
@@ -50,11 +51,6 @@ export default async function register(app) {
         }
       }
     ],
-    settings: {
-      'unboxpay-payments': {
-        sellerId: ''
-      }
-    },
     registry: [
       // Settings panel
       {
@@ -63,6 +59,15 @@ export default async function register(app) {
         container: 'dashboard',
         template: 'UnboxPaySettingsFormContainer'
       }
-    ]
+    ],
+    shopSettingsConfig: {
+      unboxPayPluginSellerId: {
+        defaultValue: 'sellerIdTeste',
+        simpleSchema: {
+          type: String
+        }
+        // permissionsThatCanEdit: ["reaction:legacy:shippingMethods/update:settings"],
+      }
+    }
   });
 }
