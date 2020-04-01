@@ -34,6 +34,8 @@ class TransactionRepositoryZoop {
 
     const transactionPayload = transactionPayloadBuilder.build();
 
+    console.log('transactionPayload', transactionPayload);
+
     const result = await request({
       method: POST,
       url: ZOOP_URL,

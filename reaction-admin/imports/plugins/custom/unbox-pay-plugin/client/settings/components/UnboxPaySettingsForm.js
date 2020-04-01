@@ -3,21 +3,30 @@ import { TextField, Translation } from '/imports/plugins/core/ui/client/componen
 import PropTypes from 'prop-types';
 import { Components } from '@reactioncommerce/reaction-components';
 
-const handleSubmit = (props, e, sellerId) => {
+const handleSubmit = (props, e, sellerId, shopId) => {
   e.preventDefault();
 
   const { onSubmit } = props;
 
-  return onSubmit(sellerId);
+  return onSubmit({
+    variables: {
+      input: {
+        settingsUpdates: {
+          unboxPayPluginSellerId: sellerId
+        },
+        shopId
+      }
+    }
+  });
 };
 
-const UnboxPaySettingsForm = props => {
-  const { settings, isLoadingPaymentShopSettings } = props;
+function UnboxPaySettingsForm(props) {
+  const { settings, isLoadingPaymentShopSettings, shopId } = props;
   const { unboxPayPluginSellerId } = settings || {};
 
-  const [sellerId, setSellerId] = useState(unboxPayPluginSellerId);
-
   if (isLoadingPaymentShopSettings) return <Components.Loading />;
+
+  const [sellerId, setSellerId] = useState(unboxPayPluginSellerId);
 
   return (
     <div>
@@ -29,7 +38,7 @@ const UnboxPaySettingsForm = props => {
           />
         </div>
       )}
-      <form onSubmit={e => handleSubmit(props, e, sellerId)}>
+      <form onSubmit={e => handleSubmit(props, e, sellerId, shopId)}>
         <TextField
           label="Seller ID"
           name="sellerId"
@@ -44,7 +53,7 @@ const UnboxPaySettingsForm = props => {
       </form>
     </div>
   );
-};
+}
 
 UnboxPaySettingsForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,

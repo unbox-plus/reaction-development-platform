@@ -65,8 +65,8 @@ export default async function register(app) {
         defaultValue: 'sellerIdTeste',
         simpleSchema: {
           type: String
-        }
-        // permissionsThatCanEdit: ["reaction:legacy:shippingMethods/update:settings"],
+        },
+        permissionsThatCanEdit: ['reaction:legacy:shops/update']
       }
     }
   });

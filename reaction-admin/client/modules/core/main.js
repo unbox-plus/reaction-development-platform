@@ -362,14 +362,10 @@ export default {
       userId
     });
 
-    console.log(account);
-
     // Give preference to shop chosen by the user
     const activeShopId = account ? account.shopId : null;
     if (activeShopId) {
-      const a = Shops.findOne({ _id: activeShopId });
-      console.log(a);
-      return a;
+      return Shops.findOne({ _id: activeShopId });
     }
 
     // If no chosen shop, fall back to primary shop

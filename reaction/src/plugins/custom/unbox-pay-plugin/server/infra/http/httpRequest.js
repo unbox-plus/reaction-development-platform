@@ -45,6 +45,9 @@ export async function request({
     headers: { 'Content-Type': 'application/json', ...headers },
     ...(auth && { auth })
   };
+
+  console.log('options', options);
+
   try {
     const requestResult = await axios(options);
     const result = requestResult.data;

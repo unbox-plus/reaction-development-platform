@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   Box,
@@ -48,6 +48,7 @@ const refreshOptions = [
  * @returns {Node} React node
  */
 export default function SitemapSettings() {
+  const [a] = useState("b");
   const [shopId] = useCurrentShopId();
   const classes = useStyles();
   const [getShopSettings, { loading: loadingSettings, data, error, called }] = useLazyQuery(shopSettingsQuery);
@@ -123,7 +124,9 @@ export default function SitemapSettings() {
       </CardContent>
       <CardActions>
         <Grid container alignItems="center" justify="flex-end">
-          <a style={{ marginRight: 20 }} href="/sitemap.xml" target="_blank">{i18next.t("SitemapSettings.viewSitemapButtonText")}</a>
+          <a style={{ marginRight: 20 }} href="/sitemap.xml" target="_blank">
+            {i18next.t("SitemapSettings.viewSitemapButtonText")}
+          </a>
           <Button color="primary" variant="outlined" onClick={onGenerateClick}>
             {i18next.t("shopSettings.refreshSitemapsNow")}
           </Button>

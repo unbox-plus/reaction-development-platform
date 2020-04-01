@@ -19,7 +19,8 @@ const withUnboxPayShopSettings = Component =>
             const props = {
               ...this.props,
               shopId,
-              isLoadingPaymentShopSettings: loading
+              isLoadingPaymentShopSettings: loading,
+              settings: {}
             };
 
             if (!loading && data) {
